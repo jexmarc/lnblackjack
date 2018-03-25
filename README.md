@@ -1,4 +1,4 @@
-# lnblacjack  or Lightning Network Blackjack
+# lnblackjack (Lightning Network Blackjack)
 
 This aims to eventually, perhaps someday, be a proof-of-concept for a web-based blackjack game where the player can make bets using bitcoin via the Lightning Network.
 
