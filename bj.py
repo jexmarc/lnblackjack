@@ -45,8 +45,10 @@ def hand_value(hand):
 	  # If hand is busted, return 100.
 	if tmp_value < 21:
 	  return [str(tmp_value), tmp_value]
-	elif tmp_value == 21:
+	elif tmp_value == 21 and len(hand) == 2:
 	  return ['BLACKJACK!', 21]
+	elif tmp_value == 21 and len(hand) > 2:
+		return ['21', 21]
 	else:
 	  return ['BUSTED!', 100]
 
@@ -79,7 +81,7 @@ while playing:
 			break
 	
 		if player_in:
-			response = int(input('Hit or Stay? (Hit = 1, Stay = 0)'))
+			response = int(input('Hit or Stay? (Hit = 1, Stay = 0):'))
 			# If player "hits" take first card from top of deck into hand.
 			# If player "stays" change player_in to false and move on to 
 			# the dealer's hand.
@@ -94,7 +96,10 @@ while playing:
 	player_score_label, player_score = hand_value(player_hand)
 	dealer_score_label, dealer_score = hand_value(dealer_hand)
 	
-	if player_score <= 21:
+	if 'BLACKJACK' in player_score_label:
+		print('Dealer shows hand: {} [{}]'.format(dealer_hand, hand_value(dealer_hand)[0]))
+		print('Natural Blackjack!!! YOU WIN!!!')
+	elif player_score <= 21:
 		print('Dealer shows hand: {} [{}]'.format(dealer_hand, hand_value(dealer_hand)[0]))
 		while hand_value(dealer_hand)[1] < 17:
 			new_dealer_card = deck.pop()
@@ -112,11 +117,12 @@ while playing:
 		elif player_score < dealer_score:
 			print('Dealer Wins.')
 	else:
+		print('Dealer shows hand: {} [{}]'.format(dealer_hand, hand_value(dealer_hand)[0]))
 		print('Dealer Wins.')
 	
 	
 
-	keep_playing = int(input('Play Again? (Yes = 1, No = 0)'))
+	keep_playing = int(input('\nPlay Again? (Yes = 1, No = 0):'))
 	if keep_playing == False:
 		exit(0)
 
